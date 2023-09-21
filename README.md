@@ -1,5 +1,9 @@
 # useReducer
 
+![Alt text](public/images/ksnip_20230921-113729.png)
+
+![Alt text](public/images/ksnip_20230921-114016.png)
+
 `useReducer` is a React hook that is used for managing state in functional components, especially when the state logic is complex or involves multiple sub-values, or when you need to perform actions based on dispatched actions. It is an alternative to `useState` and is often preferred when your state logic becomes more involved. `useReducer` takes a reducer function and an initial state as arguments and returns the current state and a dispatch function to update the state based on actions.
 
 Here's how to use `useReducer`:
