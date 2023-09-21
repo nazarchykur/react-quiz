@@ -4,44 +4,14 @@ import Main from "./Main";
 import Loader from "./Loader";
 import Error from "./Error";
 import StartScreen from "./StartScreen";
-import Question from "./Question";
-
-const initialState = {
-  questions: [],
-
-  // "loading", "error", "ready", "active", "finished"
-  status: "loading",
-};
-
-function reducer(state, action) {
-  switch (action.type) {
-    case "dataReceived":
-      return {
-        ...state,
-        questions: action.payload,
-        status: "ready",
-      };
-    case "dataFailed":
-      return {
-        ...state,
-        status: "error",
-      };
-    case "start":
-      return {
-        ...state,
-        status: "active",
-      };
-    default:
-      throw new Error("Unknown action");
-  }
-}
+import { reducer, initialState } from "./App";
 
 export default function App() {
   const [{ questions, status }, dispatch] = useReducer(reducer, initialState);
 
   const numQuestions = questions.length;
 
-  useEffect(function() {
+  useEffect(function () {
     fetch("http://localhost:5000/questions")
       .then((res) => res.json())
       .then((data) => dispatch({ type: "dataReceived", payload: data }))
@@ -54,9 +24,7 @@ export default function App() {
       <Main>
         {status === "loading" && <Loader />}
         {status === "error" && <Error />}
-        {status === "ready" && (
-          <StartScreen numQuestions={numQuestions} dispatch={dispatch} />
-        )}
+        {status === "ready" && <StartScreen numQuestions={numQuestions} />}
         {status === "active" && <Question />}
       </Main>
     </div>
